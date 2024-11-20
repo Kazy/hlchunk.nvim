@@ -154,7 +154,7 @@ function BaseMod:createAutocmd()
             local data = vim.v.event
 
             for winid, changes in pairs(data) do
-                if winid ~= "all" then
+                if winid ~= "all" and winid ~= nil and vim.api.nvim_win_is_valid(tonumber(winid)) then
                     winid = tonumber(winid) --[[@as number]]
                     local bufnr = api.nvim_win_get_buf(winid)
                     if changes.topline ~= 0 then
@@ -236,4 +236,5 @@ function BaseMod:notify(msg, level, opts)
         vim.notify(msg, level, opts)
     end
 end
+
 return BaseMod
